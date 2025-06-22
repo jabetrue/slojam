@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SLOJam - Web Mode</title>
+  <script src="/static/app.js" defer></script>
+  <style>
+    body { font-family: Raleway, sans-serif; padding: 2rem; }
+    .student { margin-bottom: 2rem; }
+    .slo { margin: 0.5rem 0; }
+    .score-btn { margin: 0 0.3rem; padding: 0.3rem 0.6rem; cursor: pointer; }
+    .score-btn.active { background: maroon; color: white; }
+  </style>
+</head>
+<body>
+  <h1>SLOJam - Web Mode</h1>
+  {% for student in students %}
+    <div class="student" data-student-id="{{ student.id }}">
+      <h2>{{ student.name }}</h2>
+      {% for slo in slos %}
+        <div class="slo" data-slo-id="{{ slo.id }}">
+          <strong>{{ slo.title }}:</strong> {{ slo.description }}<br/>
+          <div>
+            {% for score in [4, 3, 2, 1] %}
+              <button class="score-btn" data-score="{{ score }}">{{ score }}</button>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</body>
+</html>
