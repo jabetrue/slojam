@@ -43,8 +43,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById("pageNum").textContent = currentPage;
+    document.getElementById("pageNumTop").textContent = currentPage;
 
     document.querySelectorAll(".score-btn").forEach(btn => {
+      btn.classList.remove("active");
       btn.addEventListener("click", () => {
         const group = btn.closest(".slo-row");
         group.querySelectorAll(".score-btn").forEach(b => b.classList.remove("active"));
@@ -70,8 +72,19 @@ document.addEventListener("DOMContentLoaded", () => {
       renderStudents();
     }
   });
-
   document.getElementById("nextBtn").addEventListener("click", () => {
+    if ((currentPage * perPage) < allStudents.length) {
+      currentPage++;
+      renderStudents();
+    }
+  });
+  document.getElementById("prevBtnTop").addEventListener("click", () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderStudents();
+    }
+  });
+  document.getElementById("nextBtnTop").addEventListener("click", () => {
     if ((currentPage * perPage) < allStudents.length) {
       currentPage++;
       renderStudents();

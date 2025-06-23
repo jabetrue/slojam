@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>SLOJam - Web Mode</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <script src="/static/app.js" defer></script>
   <style>
     body {
@@ -11,23 +11,23 @@
       padding: 2rem;
       max-width: 960px;
       margin: auto;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
     }
     h1 {
-      font-weight: 600;
-      font-size: 1.75rem;
+      font-weight: 800;
+      font-size: 1.5rem;
       color: maroon;
       margin-bottom: 0.25rem;
     }
     .instructor {
       font-weight: 400;
-      font-size: 1rem;
+      font-size: 0.95rem;
       margin-bottom: 1rem;
       color: #444;
     }
     #toggleTips {
       margin-bottom: 1rem;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
     .toggle-panel {
       background: #f8f8f8;
@@ -36,14 +36,18 @@
       margin-bottom: 0.5rem;
     }
     .controls {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       padding-top: 0.5rem;
+    }
+    .controls-separator {
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 1.5rem;
     }
     .student {
       margin-bottom: 2rem;
     }
     .student h2 {
-      font-size: 1.2rem;
+      font-size: 1.05rem;
       font-weight: 600;
     }
     .slo-row {
@@ -69,7 +73,9 @@
     .score-btn.active[data-score="2"] { background-color: #ef6c00; color: white; }
     .score-btn.active[data-score="1"] { background-color: #c62828; color: white; }
     .pagination {
-      margin-top: 2rem;
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+      text-align: right;
     }
   </style>
 </head>
@@ -102,11 +108,18 @@
       </label>
       <label>Custom: <input id="customPerPage" type="number" min="1" max="100" value="4"></label>
     </div>
+    <div class="controls-separator"></div>
+  </div>
+
+  <div class="pagination top-pagination">
+    <button id="prevBtnTop">◀ Prev</button>
+    <button id="nextBtnTop">Next ▶</button>
+    <span>Page: <strong id="pageNumTop">1</strong></span>
   </div>
 
   <div id="studentsContainer"></div>
 
-  <div class="pagination">
+  <div class="pagination bottom-pagination">
     <button id="prevBtn">◀ Prev</button>
     <button id="nextBtn">Next ▶</button>
     <span>Page: <strong id="pageNum">1</strong></span>
