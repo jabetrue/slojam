@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".score-btn").forEach(btn => {
     btn.addEventListener("click", () => {
@@ -8,11 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const toggleBtn = document.getElementById("toggleTips");
-  const tips = document.getElementById("tips");
-  if (toggleBtn && tips) {
+  const tipsPanel = document.getElementById("tipsPanel");
+  if (toggleBtn && tipsPanel) {
     toggleBtn.addEventListener("click", () => {
-      const isHidden = tips.style.display === "none";
-      tips.style.display = isHidden ? "block" : "none";
+      const isHidden = tipsPanel.style.display === "none";
+      tipsPanel.style.display = isHidden ? "block" : "none";
       toggleBtn.innerHTML = isHidden ? "👁️ Hide Tips and Options" : "👁 Show Tips and Options";
     });
   }

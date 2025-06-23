@@ -1,90 +1,90 @@
+
 <!DOCTYPE html>
 <html>
 <head>
   <title>SLOJam - Web Mode</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Raleway:wght@800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <script src="/static/app.js" defer></script>
   <style>
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
       padding: 2rem;
       max-width: 960px;
       margin: auto;
+      font-size: 0.95rem;
     }
-    h1, .header {
-      font-family: 'Raleway', sans-serif;
-      font-size: 2rem;
-      color: maroon;
-    }
-    h2 {
+    h1 {
       font-weight: 600;
-      margin-top: 2rem;
+      font-size: 1.75rem;
+      color: maroon;
+      margin-bottom: 0.25rem;
     }
     .instructor {
       font-weight: 400;
-      color: #555;
+      font-size: 1rem;
       margin-bottom: 1rem;
+      color: #444;
+    }
+    #toggleTips {
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
     }
     .toggle-panel {
-      background: #f7f7f7;
+      background: #f8f8f8;
       border-left: 5px solid green;
       padding: 1rem;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
     }
     .controls {
-      margin-bottom: 2rem;
+      margin-bottom: 1.5rem;
+      padding-top: 0.5rem;
     }
     .student {
       margin-bottom: 2rem;
     }
+    .student h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
     .slo-row {
       display: grid;
-      grid-template-columns: 1fr 3fr auto;
+      grid-template-columns: 1fr 2.5fr auto;
       align-items: center;
       margin-bottom: 0.5rem;
     }
     .score-btn {
-      margin: 0 0.15rem;
-      padding: 0.3rem 0.75rem;
+      padding: 0.35rem 0.75rem;
+      margin: 0 0.1rem;
       font-size: 0.85rem;
-      font-weight: 500;
-      border: 1px solid #aaa;
+      border: 1px solid #ccc;
       border-radius: 4px;
       cursor: pointer;
+      min-width: 115px;
+      text-align: center;
     }
-    .score-btn.active { color: white; }
     .score-btn[data-score="4"] { background-color: #2e7d32; color: white; }
     .score-btn[data-score="3"] { background-color: #1565c0; color: white; }
     .score-btn[data-score="2"] { background-color: #ef6c00; color: white; }
     .score-btn[data-score="1"] { background-color: #c62828; color: white; }
-    .tips-toggle {
-      margin-bottom: 1rem;
-    }
     .pagination {
-      margin-top: 1rem;
-      display: flex;
-      align-items: center;
-    }
-    .pagination button {
-      margin-right: 0.5rem;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
-  <div class="header">SLO Scoring for ART 001A #98765</div>
+  <h1>SLO Scoring for ART 001A #98765</h1>
   <div class="instructor">Instructor: Jason Betrue</div>
 
-  <div class="tips-toggle">
-    <button id="toggleTips">👁️ Hide Tips and Options</button>
-  </div>
-
-  <div id="tips" class="toggle-panel">
-    <h3>Quick Tips:</h3>
-    <ul>
-      <li>Use the score buttons to assign SLO scores for each student.</li>
-      <li>Required SLOs are marked with a ⭐ symbol.</li>
-      <li>You can use the toggles below to hide optional outcomes or show/hide full descriptions.</li>
-    </ul>
+  <button id="toggleTips">👁️ Hide Tips and Options</button>
+  <div id="tipsPanel">
+    <div class="toggle-panel">
+      <h3>Quick Tips:</h3>
+      <ul>
+        <li>Use the score buttons to assign SLO scores for each student.</li>
+        <li>Required SLOs are marked with a ⭐ symbol.</li>
+        <li>You can use the toggles below to hide optional outcomes or show/hide full descriptions.</li>
+      </ul>
+    </div>
 
     <div class="controls">
       <label><input type="checkbox" checked> Show only SLOs required for Summer 2025</label>
@@ -102,24 +102,28 @@
     </div>
   </div>
 
-  <div id="studentContainer">
-    {% for student in students[:5] %}
-      <div class="student" data-student-id="{{ student.id }}">
-        <h2>{{ student.name }}</h2>
-        {% for slo in slos %}
-          <div class="slo-row" data-slo-id="{{ slo.id }}">
-            <div><strong>{{ slo.title }}</strong></div>
-            <div>{{ slo.description }}</div>
-            <div>
-              <button class="score-btn" data-score="4">4 — Exceeded</button>
-              <button class="score-btn" data-score="3">3 — Met</button>
-              <button class="score-btn" data-score="2">2 — Approaching</button>
-              <button class="score-btn" data-score="1">1 — Not Met</button>
-            </div>
-          </div>
-        {% endfor %}
+  <div class="student">
+    <h2>Beesly, Pam</h2>
+    <div class="slo-row">
+      <div><strong>SLO 1</strong></div>
+      <div>Analyze art using formal and contextual analysis.</div>
+      <div>
+        <button class="score-btn" data-score="4">Exceeded (4)</button>
+        <button class="score-btn" data-score="3">Met (3)</button>
+        <button class="score-btn" data-score="2">Partially Met (2)</button>
+        <button class="score-btn" data-score="1">Not Met (1)</button>
       </div>
-    {% endfor %}
+    </div>
+    <div class="slo-row">
+      <div><strong>SLO 2</strong></div>
+      <div>Identify stylistic features in historical artworks.</div>
+      <div>
+        <button class="score-btn" data-score="4">Exceeded (4)</button>
+        <button class="score-btn" data-score="3">Met (3)</button>
+        <button class="score-btn" data-score="2">Partially Met (2)</button>
+        <button class="score-btn" data-score="1">Not Met (1)</button>
+      </div>
+    </div>
   </div>
 
   <div class="pagination">
