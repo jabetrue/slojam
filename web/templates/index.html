@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,10 +71,15 @@
     .score-btn.active[data-score="3"] { background-color: #1565c0; color: white; }
     .score-btn.active[data-score="2"] { background-color: #ef6c00; color: white; }
     .score-btn.active[data-score="1"] { background-color: #c62828; color: white; }
-    .pagination {
-      margin-top: 1rem;
-      margin-bottom: 1.5rem;
-      text-align: right;
+
+    .pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem 0 1.5rem 0;
+    }
+    .pagination button {
+      margin-left: 0.3rem;
     }
   </style>
 </head>
@@ -96,32 +100,41 @@
 
     <div class="controls">
       <label><input type="checkbox" checked> Show only SLOs required for Summer 2025</label>
-      <label><input type="checkbox" checked> Show full SLO descriptions</label><br><br>
-      <label>Students per page:
-        <select id="perPageSelect">
-          <option value="all">All</option>
-          <option value="1">1</option>
-          <option value="5" selected>5</option>
-          <option value="10">10</option>
-          <option value="20">20</option>
-        </select>
-      </label>
+      <label><input type="checkbox" checked> Show full SLO descriptions</label>
     </div>
     <div class="controls-separator"></div>
   </div>
 
-  <div class="pagination top-pagination">
-    <button id="prevBtnTop">◀ Prev</button>
-    <button id="nextBtnTop">Next ▶</button>
-    <span>Page: <strong id="pageNumTop">1</strong></span>
+  <div class="pagination-bar top-pagination">
+    <label for="perPageSelect">Students per page:
+      <select id="perPageSelect">
+        <option value="all">All</option>
+        <option value="1">1</option>
+        <option value="5" selected>5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+      </select>
+    </label>
+    <div class="pagination">
+      <button id="prevBtnTop">◀ Prev</button>
+      <button id="nextBtnTop">Next ▶</button>
+      <span>Page: <strong id="pageNumTop">1</strong></span>
+    </div>
   </div>
 
   <div id="studentsContainer"></div>
 
-  <div class="pagination bottom-pagination">
-    <button id="prevBtn">◀ Prev</button>
-    <button id="nextBtn">Next ▶</button>
-    <span>Page: <strong id="pageNum">1</strong></span>
+  <div class="pagination-bar bottom-pagination">
+    <label for="perPageSelect" style="visibility: hidden;">Students per page:
+      <select disabled>
+        <option>Placeholder</option>
+      </select>
+    </label>
+    <div class="pagination">
+      <button id="prevBtn">◀ Prev</button>
+      <button id="nextBtn">Next ▶</button>
+      <span>Page: <strong id="pageNum">1</strong></span>
+    </div>
   </div>
 </body>
 </html>

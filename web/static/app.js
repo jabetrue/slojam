@@ -61,7 +61,10 @@ document.addEventListener("DOMContentLoaded", () => {
     renderStudents();
   }
 
-  document.getElementById("perPageSelect").addEventListener("change", updatePerPage);
+  const perPageSelect = document.getElementById("perPageSelect");
+  if (perPageSelect) {
+    perPageSelect.addEventListener("change", updatePerPage);
+  }
 
   document.getElementById("prevBtn").addEventListener("click", () => {
     if (currentPage > 1) {
