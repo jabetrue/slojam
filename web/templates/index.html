@@ -2,29 +2,26 @@
 <html>
 <head>
   <title>SLOJam - Web Mode</title>
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Raleway:wght@800&display=swap" rel="stylesheet">
   <script src="/static/app.js" defer></script>
   <style>
     body {
-      font-family: Raleway, sans-serif;
+      font-family: 'Inter', sans-serif;
       padding: 2rem;
       max-width: 960px;
       margin: auto;
     }
-    h1 {
+    h1, .header {
+      font-family: 'Raleway', sans-serif;
       font-size: 2rem;
       color: maroon;
     }
     h2 {
+      font-weight: 600;
       margin-top: 2rem;
     }
-    .header {
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: maroon;
-    }
     .instructor {
-      font-weight: 600;
+      font-weight: 400;
       color: #555;
       margin-bottom: 1rem;
     }
@@ -48,13 +45,18 @@
     }
     .score-btn {
       margin: 0 0.15rem;
-      padding: 0.3rem 0.6rem;
+      padding: 0.3rem 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid #aaa;
+      border-radius: 4px;
       cursor: pointer;
     }
-    .score-btn.active {
-      background: maroon;
-      color: white;
-    }
+    .score-btn.active { color: white; }
+    .score-btn[data-score="4"] { background-color: #2e7d32; color: white; }
+    .score-btn[data-score="3"] { background-color: #1565c0; color: white; }
+    .score-btn[data-score="2"] { background-color: #ef6c00; color: white; }
+    .score-btn[data-score="1"] { background-color: #c62828; color: white; }
     .tips-toggle {
       margin-bottom: 1rem;
     }
@@ -83,39 +85,42 @@
       <li>Required SLOs are marked with a ⭐ symbol.</li>
       <li>You can use the toggles below to hide optional outcomes or show/hide full descriptions.</li>
     </ul>
-  </div>
 
-  <div class="controls">
-    <label><input type="checkbox" checked> Show only SLOs required for Summer 2025</label>
-    <label><input type="checkbox" checked> Show full SLO descriptions</label><br><br>
-    <label>Students per page:
-      <select>
-        <option>All</option>
-        <option>1</option>
-        <option selected>5</option>
-        <option>10</option>
-        <option>20</option>
-      </select>
-    </label>
-    <label>Custom: <input type="number" min="1" max="100" value="4"></label>
-  </div>
-
-  {% for student in students %}
-    <div class="student" data-student-id="{{ student.id }}">
-      <h2>{{ student.name }}</h2>
-      {% for slo in slos %}
-        <div class="slo-row" data-slo-id="{{ slo.id }}">
-          <div><strong>{{ slo.title }}</strong></div>
-          <div>{{ slo.description }}</div>
-          <div>
-            {% for score in [4, 3, 2, 1] %}
-              <button class="score-btn" data-score="{{ score }}">{{ score }}</button>
-            {% endfor %}
-          </div>
-        </div>
-      {% endfor %}
+    <div class="controls">
+      <label><input type="checkbox" checked> Show only SLOs required for Summer 2025</label>
+      <label><input type="checkbox" checked> Show full SLO descriptions</label><br><br>
+      <label>Students per page:
+        <select id="perPageSelect">
+          <option value="all">All</option>
+          <option value="1">1</option>
+          <option value="5" selected>5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
+      </label>
+      <label>Custom: <input id="customPerPage" type="number" min="1" max="100" value="4"></label>
     </div>
-  {% endfor %}
+  </div>
+
+  <div id="studentContainer">
+    {% for student in students[:5] %}
+      <div class="student" data-student-id="{{ student.id }}">
+        <h2>{{ student.name }}</h2>
+        {% for slo in slos %}
+          <div class="slo-row" data-slo-id="{{ slo.id }}">
+            <div><strong>{{ slo.title }}</strong></div>
+            <div>{{ slo.description }}</div>
+            <div>
+              <button class="score-btn" data-score="4">4 — Exceeded</button>
+              <button class="score-btn" data-score="3">3 — Met</button>
+              <button class="score-btn" data-score="2">2 — Approaching</button>
+              <button class="score-btn" data-score="1">1 — Not Met</button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
 
   <div class="pagination">
     <button>◀ Prev</button>
