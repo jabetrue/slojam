@@ -1,3 +1,10 @@
+.nav-btn {
+  min-width: 80px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  margin-left: 4px;
+}
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const allStudents = [
