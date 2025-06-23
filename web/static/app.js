@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   const allStudents = [
     { name: "Beesly, Pam" },
@@ -56,15 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updatePerPage() {
-    const select = document.getElementById("perPageSelect").value;
-    const custom = parseInt(document.getElementById("customPerPage").value, 10);
-    perPage = select === "all" ? allStudents.length : (isNaN(custom) ? parseInt(select) : custom);
+    const selected = document.getElementById("perPageSelect").value;
+    perPage = selected === "all" ? allStudents.length : parseInt(selected);
     currentPage = 1;
     renderStudents();
   }
 
   document.getElementById("perPageSelect").addEventListener("change", updatePerPage);
-  document.getElementById("customPerPage").addEventListener("input", updatePerPage);
 
   document.getElementById("prevBtn").addEventListener("click", () => {
     if (currentPage > 1) {
