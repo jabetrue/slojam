@@ -61,11 +61,13 @@
       cursor: pointer;
       min-width: 115px;
       text-align: center;
+      background-color: #eee;
+      color: #333;
     }
-    .score-btn[data-score="4"] { background-color: #2e7d32; color: white; }
-    .score-btn[data-score="3"] { background-color: #1565c0; color: white; }
-    .score-btn[data-score="2"] { background-color: #ef6c00; color: white; }
-    .score-btn[data-score="1"] { background-color: #c62828; color: white; }
+    .score-btn.active[data-score="4"] { background-color: #2e7d32; color: white; }
+    .score-btn.active[data-score="3"] { background-color: #1565c0; color: white; }
+    .score-btn.active[data-score="2"] { background-color: #ef6c00; color: white; }
+    .score-btn.active[data-score="1"] { background-color: #c62828; color: white; }
     .pagination {
       margin-top: 2rem;
     }
@@ -102,34 +104,12 @@
     </div>
   </div>
 
-  <div class="student">
-    <h2>Beesly, Pam</h2>
-    <div class="slo-row">
-      <div><strong>SLO 1</strong></div>
-      <div>Analyze art using formal and contextual analysis.</div>
-      <div>
-        <button class="score-btn" data-score="4">Exceeded (4)</button>
-        <button class="score-btn" data-score="3">Met (3)</button>
-        <button class="score-btn" data-score="2">Partially Met (2)</button>
-        <button class="score-btn" data-score="1">Not Met (1)</button>
-      </div>
-    </div>
-    <div class="slo-row">
-      <div><strong>SLO 2</strong></div>
-      <div>Identify stylistic features in historical artworks.</div>
-      <div>
-        <button class="score-btn" data-score="4">Exceeded (4)</button>
-        <button class="score-btn" data-score="3">Met (3)</button>
-        <button class="score-btn" data-score="2">Partially Met (2)</button>
-        <button class="score-btn" data-score="1">Not Met (1)</button>
-      </div>
-    </div>
-  </div>
+  <div id="studentsContainer"></div>
 
   <div class="pagination">
-    <button>◀ Prev</button>
-    <button>Next ▶</button>
-    <span>Page: <strong>1</strong></span>
+    <button id="prevBtn">◀ Prev</button>
+    <button id="nextBtn">Next ▶</button>
+    <span>Page: <strong id="pageNum">1</strong></span>
   </div>
 </body>
 </html>
