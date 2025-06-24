@@ -55,15 +55,24 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function updatePerPage() {
-    const selected = document.getElementById("perPageSelect").value;
-    perPage = selected === "all" ? allStudents.length : parseInt(selected);
+    const selectedValue = document.getElementById("perPageSelect").value;
+    perPage = selectedValue === "all" ? allStudents.length : parseInt(selectedValue);
     currentPage = 1;
+    document.getElementById("perPageSelectBottom").value = selectedValue;
     renderStudents();
   }
 
   const perPageSelect = document.getElementById("perPageSelect");
   if (perPageSelect) {
     perPageSelect.addEventListener("change", updatePerPage);
+  }
+
+  const perPageSelectBottom = document.getElementById("perPageSelectBottom");
+  if (perPageSelectBottom) {
+    perPageSelectBottom.addEventListener("change", () => {
+      perPageSelect.value = perPageSelectBottom.value;
+      updatePerPage();
+    });
   }
 
   document.getElementById("prevBtn").addEventListener("click", () => {
