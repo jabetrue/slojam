@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentPage = 1;
   let perPage = 5;
+  let scoreData = {}; // key: "studentName-sloId", value: score
 
   function renderStudents() {
     const container = document.getElementById("studentsContainer");
@@ -27,17 +28,29 @@ document.addEventListener("DOMContentLoaded", () => {
     visible.forEach(student => {
       const div = document.createElement("div");
       div.className = "student";
-      div.innerHTML = `<h2>${student.name}</h2>` + sloList.map(slo => `
-        <div class="slo-row">
-          <div><strong>SLO ${slo.id}</strong></div>
-          <div>${slo.desc}</div>
-          <div>
-            <button class="score-btn" data-score="4">Exceeded (4)</button>
-            <button class="score-btn" data-score="3">Met (3)</button>
-            <button class="score-btn" data-score="2">Partially Met (2)</button>
-            <button class="score-btn" data-score="1">Not Met (1)</button>
-          </div>
-        </div>`).join("");
+      div.innerHTML = `<h2>${student.name}</h2>` + sloList.map(slo => {
+        const key = `${student.name}-${slo.id}`;
+        const selectedScore = scoreData[key];
+
+        const labels = {
+          4: 'Exceeded (4)',
+          3: 'Met (3)',
+          2: 'Partially Met (2)',
+          1: 'Not Met (1)'
+        };
+
+        const buttons = [4, 3, 2, 1].map(score => {
+          const isActive = selectedScore == score ? 'active' : '';
+          return `<button class="score-btn ${isActive}" data-score="${score}" data-student="${student.name}" data-slo="${slo.id}">${labels[score]}</button>`;
+        }).join("");
+
+        return `
+          <div class="slo-row">
+            <div><strong>SLO ${slo.id}</strong></div>
+            <div>${slo.desc}</div>
+            <div>${buttons}</div>
+          </div>`;
+      }).join("");
       container.appendChild(div);
     });
 
@@ -45,16 +58,21 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("pageNumTop").textContent = currentPage;
 
     document.querySelectorAll(".score-btn").forEach(btn => {
-      btn.classList.remove("active");
       btn.addEventListener("click", () => {
+        const student = btn.getAttribute("data-student");
+        const slo = btn.getAttribute("data-slo");
+        const score = btn.getAttribute("data-score");
+        const key = `${student}-${slo}`;
         const group = btn.closest(".slo-row");
         const alreadyActive = btn.classList.contains("active");
 
-        // Clear all scores first
+        // Clear existing
         group.querySelectorAll(".score-btn").forEach(b => b.classList.remove("active"));
 
-        // Only reapply if it wasn't already active
-        if (!alreadyActive) {
+        if (alreadyActive) {
+          delete scoreData[key];
+        } else {
+          scoreData[key] = score;
           btn.classList.add("active");
         }
       });
