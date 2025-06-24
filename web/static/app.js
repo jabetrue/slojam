@@ -10,8 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   const sloList = [
-    { id: 1, desc: "Analyze art using formal and contextual analysis." },
-    { id: 2, desc: "Identify stylistic features in historical artworks." },
+    { id: 1, desc: "Analyze art using formal and contextual analysis.", required: true },
+    { id: 2, desc: "Identify stylistic features in historical artworks.", required: false },
+    { id: 3, desc: "Evaluate works of art and/or architecture, accounting for both similarities and differences.", required: true },
+    { id: 4, desc: "Analyze the ways in which art from prehistory through the middle ages has been employed historically to express fundamental human ideals, values, and beliefs.", required: false }
   ];
 
   let currentPage = 1;
