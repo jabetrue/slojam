@@ -48,8 +48,15 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.classList.remove("active");
       btn.addEventListener("click", () => {
         const group = btn.closest(".slo-row");
+        const alreadyActive = btn.classList.contains("active");
+
+        // Clear all scores first
         group.querySelectorAll(".score-btn").forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
+
+        // Only reapply if it wasn't already active
+        if (!alreadyActive) {
+          btn.classList.add("active");
+        }
       });
     });
   }
