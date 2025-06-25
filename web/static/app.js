@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1;
   let perPage = 5;
   let scoreData = {}; // key: "studentName-sloId", value: score
+  let showOnlyRequired = false;
 
   function renderStudents() {
     const container = document.getElementById("studentsContainer");
@@ -26,15 +27,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const start = (currentPage - 1) * perPage;
     const end = start + perPage;
     const visible = allStudents.slice(start, end);
+
     const bottomPagination = document.getElementById("bottomPaginationWrapper");
-	if (bottomPagination) {
-	  bottomPagination.style.display = visible.length <= 1 ? "none" : "flex";
-	}
+    if (bottomPagination) {
+      bottomPagination.style.display = visible.length <= 1 ? "none" : "flex";
+    }
 
     visible.forEach(student => {
       const div = document.createElement("div");
       div.className = "student";
-      div.innerHTML = `<h2>${student.name}</h2>` + sloList.map(slo => {
+
+      const visibleSLOs = showOnlyRequired ? sloList.filter(s => s.required) : sloList;
+
+      div.innerHTML = `<h2>${student.name}</h2>` + visibleSLOs.map(slo => {
         const key = `${student.name}-${slo.id}`;
         const selectedScore = scoreData[key];
 
@@ -57,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <div>${buttons}</div>
           </div>`;
       }).join("");
+
       container.appendChild(div);
     });
 
@@ -138,6 +144,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const isHidden = tipsPanel.style.display === "none";
       tipsPanel.style.display = isHidden ? "block" : "none";
       toggleBtn.innerHTML = isHidden ? "👁️ Hide Tips and Options" : "👁 Show Tips and Options";
+    });
+  }
+
+  const toggleRequiredOnlyCheckbox = document.getElementById("toggleRequiredOnly");
+  if (toggleRequiredOnlyCheckbox) {
+    toggleRequiredOnlyCheckbox.addEventListener("change", (e) => {
+      showOnlyRequired = e.target.checked;
+      renderStudents();
     });
   }
 
