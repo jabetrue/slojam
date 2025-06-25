@@ -114,6 +114,11 @@
 	.score-btn.active:hover::after {
 	  opacity: 1;
 	}
+	.star {
+	  color: maroon;
+	  font-weight: bold;
+	  margin-left: 2px;
+	}
   </style>
 </head>
 <body>
@@ -135,7 +140,7 @@
 
 <div class="pagination-bar" style="justify-content: space-between;">
   <div class="pagination-left">
-    <label><input type="checkbox" id="toggleRequiredOnly" checked> Show only required SLOs ⭐</label>
+    <label style="margin-right: 1rem;"><input type="checkbox" id="toggleRequiredOnly" checked> Show only required SLOs <span class="star">★</span></label>
     <label><input type="checkbox" id="toggleDescriptions" checked> Show full descriptions</label>
   </div>
 
@@ -161,8 +166,8 @@
 
 <div id="bottomPaginationWrapper" class="pagination-bar" style="justify-content: space-between;">
   <div class="pagination-left">
-    <label><input type="checkbox" id="toggleRequiredOnlyBottom" checked> Show only required SLOs ⭐</label>
-    <label><input type="checkbox" id="toggleDescriptionsBottom" checked> Show full descriptions</label>
+    <label style="margin-right: 1rem;"><input type="checkbox" id="toggleRequiredOnly" checked> Show only required SLOs <span class="star">★</span></label>
+    <label><input type="checkbox" id="toggleDescriptions" checked> Show full descriptions</label>
   </div>
 
   <div class="pagination-right" style="display: flex; align-items: center; gap: 1rem;">
