@@ -26,6 +26,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const start = (currentPage - 1) * perPage;
     const end = start + perPage;
     const visible = allStudents.slice(start, end);
+    const bottomPagination = document.getElementById("bottomPaginationWrapper");
+	if (bottomPagination) {
+	  bottomPagination.style.display = visible.length <= 1 ? "none" : "flex";
+	}
 
     visible.forEach(student => {
       const div = document.createElement("div");
