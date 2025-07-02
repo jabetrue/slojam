@@ -35,6 +35,25 @@ slos = [
     {"id": "slo_002", "title": "SLO 2", "description": "Identify stylistic features in historical artworks."}
 ]
 
+# Temporary hardcoded required SLOs matrix by term
+REQUIRED_SLO_MATRIX = {
+    "202670": [1, 5],
+    "202710": [1, 5],
+    "202730": [1, 5],
+    "202750": [1, 5],
+    "202770": [2, 6],
+    "202810": [2, 6],
+    "202830": [2, 6],
+    "202850": [2, 6],
+    "202870": [3, 7],
+    "202910": [3, 7],
+    "202930": [3, 7],
+    "202950": [3, 7],
+}
+
+def get_required_slos(term_id):
+    return REQUIRED_SLO_MATRIX.get(term_id, [])
+
 @app.route("/")
 def index():
     try:
@@ -42,7 +61,11 @@ def index():
     except Exception as e:
         students = []
         print("Error fetching students:", e)
-    return render_template("index.html", students=students, slos=slos)
+
+    term_id = "202670"  # temp: simulate current term
+    required_slos = get_required_slos(term_id)
+
+    return render_template("index.html", students=students, slos=slos, required_slos=required_slos)
 
 @app.route("/submit_score", methods=["POST"])
 def submit_score():

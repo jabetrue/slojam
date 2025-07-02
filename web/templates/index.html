@@ -3,6 +3,9 @@
 <head>
   <title>SLOJam - Web Mode</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script>
+  const requiredSLOs = new Set({{ required_slos | tojson }});
+</script>
   <script src="/static/app.js" defer></script>
   <style>
     body {

@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () => {
   const allStudents = [
     { name: "Beesly, Pam" },
@@ -56,12 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
           return `<button class="score-btn ${isActive}" data-score="${score}" data-student="${student.name}" data-slo="${slo.id}">${labels[score]}</button>`;
         }).join("");
 
-        const isRequired = requiredSLOs.has(slo.id);
-        const star = isRequired ? '<span class="star">★</span>' : '';
-
         return `
           <div class="slo-row">
-            <div><strong>SLO ${slo.id}</strong>${star}</div>
+            <div><strong>SLO ${slo.id}</strong></div>
             <div>${slo.desc}</div>
             <div>${buttons}</div>
           </div>`;
@@ -82,6 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const group = btn.closest(".slo-row");
         const alreadyActive = btn.classList.contains("active");
 
+        // Clear existing
         group.querySelectorAll(".score-btn").forEach(b => b.classList.remove("active"));
 
         if (alreadyActive) {
