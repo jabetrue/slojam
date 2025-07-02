@@ -179,9 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
   requiredOnlyCheckboxes.forEach(box => {
     box.addEventListener("change", (e) => {
       showOnlyRequired = e.target.checked;
-      let showDescriptions = true;
-
-
+    
       // Sync both checkboxes
       requiredOnlyCheckboxes.forEach(b => b.checked = showOnlyRequired);
 
