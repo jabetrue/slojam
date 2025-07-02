@@ -169,9 +169,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const descriptionCheckboxes = document.querySelectorAll("#toggleDescriptions");
 
   descriptionCheckboxes.forEach(box => {
+    box.checked = false; // show full descriptions by default
     box.addEventListener("change", (e) => {
-      showDescriptions = !e.target.checked; // ✅ Flip logic: checked means collapse
-      descriptionCheckboxes.forEach(b => b.checked = !showDescriptions); // sync checkboxes
+      showDescriptions = !e.target.checked;
+      descriptionCheckboxes.forEach(b => b.checked = e.target.checked);
       renderStudents();
     });
   });
