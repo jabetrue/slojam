@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let scoreData = {}; // key: "studentName-sloId", value: score
   let showOnlyRequired = false;
   let showDescriptions = true;
+  const descriptionCheckboxes = document.querySelectorAll("#toggleDescriptions");
 
   function truncateText(text) {
     const firstPeriod = text.indexOf(".");
@@ -167,10 +168,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const descriptionToggles = document.querySelectorAll("#toggleDescriptions");
 
-  descriptionToggles.forEach(box => {
+  descriptionCheckboxes.forEach(box => {
     box.addEventListener("change", (e) => {
-      showDescriptions = e.target.checked;
-      descriptionToggles.forEach(b => b.checked = showDescriptions); // sync top + bottom
+       showDescriptions = e.target.checked;
+
+      // sync both checkboxes
+      descriptionCheckboxes.forEach(b => b.checked = showDescriptions);
+
       renderStudents();
     });
   });
