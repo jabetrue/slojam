@@ -21,6 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let perPage = 5;
   let scoreData = {}; // key: "studentName-sloId", value: score
   let showOnlyRequired = false;
+  let showDescriptions = true;
+
+  function truncateText(text) {
+    const firstPeriod = text.indexOf(".");
+    if (firstPeriod > 0 && firstPeriod < 120) {
+      return text.slice(0, firstPeriod + 1);
+    }
+    const words = text.split(" ").slice(0, 15).join(" ");
+    return words + "...";
+  }
 
   function renderStudents() {
     const container = document.getElementById("studentsContainer");
@@ -65,7 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return `
           <div class="slo-row">
             <div>${star}<strong>SLO ${slo.id}</strong></div>
-            <div class="slo-desc" style="display: ${showDescriptions ? 'block' : 'none'};">${slo.desc}</div>
+			<div class="slo-desc">
+			  ${showDescriptions ? slo.desc : truncateText(slo.desc)}
+			</div>
             <div>${buttons}</div>
           </div>`;
       }).join("");
