@@ -153,13 +153,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const toggleRequiredOnlyCheckbox = document.getElementById("toggleRequiredOnly");
-  if (toggleRequiredOnlyCheckbox) {
-    toggleRequiredOnlyCheckbox.addEventListener("change", (e) => {
+  const requiredOnlyCheckboxes = document.querySelectorAll("#toggleRequiredOnly");
+
+  requiredOnlyCheckboxes.forEach(box => {
+    box.addEventListener("change", (e) => {
       showOnlyRequired = e.target.checked;
+
+      // Sync both checkboxes
+      requiredOnlyCheckboxes.forEach(b => b.checked = showOnlyRequired);
+
       renderStudents();
     });
-  }
+  });
 
   renderStudents();
 });
