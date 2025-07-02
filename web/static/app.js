@@ -57,8 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }).join("");
 
         const isRequired = requiredSLOs.has(slo.id);
-        const star = `<span class="star">${isRequired ? "★" : "★"}</span>`;
-		const star = `<span class="star ${isRequired ? "" : "ghost-star"}">★</span>`;
+        const star = `<span class="star ${isRequired ? "" : "ghost-star"}">★</span>`;
 
         return `
           <div class="slo-row">
