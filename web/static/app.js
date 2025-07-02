@@ -170,11 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   descriptionCheckboxes.forEach(box => {
     box.addEventListener("change", (e) => {
-       showDescriptions = e.target.checked;
-
-      // sync both checkboxes
-      descriptionCheckboxes.forEach(b => b.checked = showDescriptions);
-
+      showDescriptions = !e.target.checked; // ✅ Flip logic: checked means collapse
+      descriptionCheckboxes.forEach(b => b.checked = !showDescriptions); // sync checkboxes
       renderStudents();
     });
   });
