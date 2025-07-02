@@ -176,7 +176,8 @@ document.addEventListener("DOMContentLoaded", () => {
       renderStudents();
     });
   });
-
+  const requiredOnlyCheckboxes = document.querySelectorAll("#toggleRequiredOnly");
+  
   requiredOnlyCheckboxes.forEach(box => {
     box.addEventListener("change", (e) => {
       showOnlyRequired = e.target.checked;
