@@ -39,8 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
       div.className = "student";
 
       const visibleSLOs = showOnlyRequired
-	    ? sloList.filter(s => requiredSLOs.has(s.id))
+	    ? sloList.filter(s => requiredSLOs.has(Number(s.id)))
 	    : sloList;
+
 
       div.innerHTML = `<h2>${student.name}</h2>` + visibleSLOs.map(slo => {
         const key = `${student.name}-${slo.id}`;
@@ -58,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return `<button class="score-btn ${isActive}" data-score="${score}" data-student="${student.name}" data-slo="${slo.id}">${labels[score]}</button>`;
         }).join("");
 
-        const isRequired = requiredSLOs.has(slo.id);
+        const isRequired = requiredSLOs.has(Number(slo.id));
         const star = `<span class="star ${isRequired ? "" : "ghost-star"}">★</span>`;
 
         return `
