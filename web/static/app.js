@@ -38,7 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const div = document.createElement("div");
       div.className = "student";
 
-      const visibleSLOs = showOnlyRequired ? sloList.filter(s => s.required) : sloList;
+      const visibleSLOs = showOnlyRequired
+	    ? sloList.filter(s => requiredSLOs.has(s.id))
+	    : sloList;
 
       div.innerHTML = `<h2>${student.name}</h2>` + visibleSLOs.map(slo => {
         const key = `${student.name}-${slo.id}`;
