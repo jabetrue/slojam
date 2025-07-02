@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return `
           <div class="slo-row">
             <div>${star}<strong>SLO ${slo.id}</strong></div>
-            <div>${slo.desc}</div>
+            <div class="slo-desc" style="display: ${showDescriptions ? 'block' : 'none'};">${slo.desc}</div>
             <div>${buttons}</div>
           </div>`;
       }).join("");
@@ -153,11 +153,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const requiredOnlyCheckboxes = document.querySelectorAll("#toggleRequiredOnly");
+  const descriptionToggles = document.querySelectorAll("#toggleDescriptions");
+
+  descriptionToggles.forEach(box => {
+    box.addEventListener("change", (e) => {
+      showDescriptions = e.target.checked;
+      descriptionToggles.forEach(b => b.checked = showDescriptions); // sync top + bottom
+      renderStudents();
+    });
+  });
 
   requiredOnlyCheckboxes.forEach(box => {
     box.addEventListener("change", (e) => {
       showOnlyRequired = e.target.checked;
+      let showDescriptions = true;
+
 
       // Sync both checkboxes
       requiredOnlyCheckboxes.forEach(b => b.checked = showOnlyRequired);
