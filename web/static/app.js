@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const descriptionToggles = document.querySelectorAll("#toggleDescriptions");
+  const descriptionCheckboxes = document.querySelectorAll("#toggleDescriptions");
 
   descriptionCheckboxes.forEach(box => {
     box.addEventListener("change", (e) => {
