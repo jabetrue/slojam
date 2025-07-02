@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let scoreData = {}; // key: "studentName-sloId", value: score
   let showOnlyRequired = false;
   let showDescriptions = true;
-  const descriptionCheckboxes = document.querySelectorAll("#toggleDescriptions");
+  const descriptionCheckboxes = document.querySelectorAll(".toggleDescriptions");
 
   function truncateText(text) {
     const firstPeriod = text.indexOf(".");
@@ -176,8 +176,8 @@ document.addEventListener("DOMContentLoaded", () => {
       renderStudents();
     });
   });
-  const requiredOnlyCheckboxes = document.querySelectorAll("#toggleRequiredOnly");
-  
+  const requiredOnlyCheckboxes = document.querySelectorAll(".toggleRequiredOnly");
+
   requiredOnlyCheckboxes.forEach(box => {
     box.addEventListener("change", (e) => {
       showOnlyRequired = e.target.checked;
