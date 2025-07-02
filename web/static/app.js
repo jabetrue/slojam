@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         return `
           <div class="slo-row">
-            <div><strong>SLO ${slo.id}</strong>${star}</div>
+            <div><span class="star">★</span><strong>SLO ${slo.id}</strong></div>
             <div>${slo.desc}</div>
             <div>${buttons}</div>
           </div>`;
