@@ -21,17 +21,75 @@ document.addEventListener("DOMContentLoaded", () => {
   let scoreData = {}; // key: "studentName-sloId", value: score
   let showOnlyRequired = false;
 
+  
   function renderStudents() {
     const container = document.getElementById("studentsContainer");
     container.innerHTML = "";
     const start = (currentPage - 1) * perPage;
     const end = start + perPage;
     const visible = allStudents.slice(start, end);
+    const visibleSLOs = showOnlyRequired ? sloList.filter(s => s.required) : sloList;
 
     const bottomPagination = document.getElementById("bottomPaginationWrapper");
-    if (bottomPagination) {
-      bottomPagination.style.display = visible.length <= 1 ? "none" : "flex";
-    }
+    if (bottomPagination) bottomPagination.style.display = visible.length <= 1 ? "none" : "flex";
+
+    visible.forEach(student => {
+      const div = document.createElement("div");
+      div.className = "student";
+
+      div.innerHTML = `<h2>${student.name}</h2>` + visibleSLOs.map(slo => {
+        const key = `${student.name}-${slo.id}`;
+        const selectedScore = scoreData[key];
+
+        const labels = {
+          4: 'Exceeded (4)',
+          3: 'Met (3)',
+          2: 'Partially Met (2)',
+          1: 'Not Met (1)'
+        };
+
+        const buttons = [4, 3, 2, 1].map(score => {
+          const isActive = selectedScore == score ? 'active' : '';
+          return `<button class="score-btn ${isActive}" data-score="${score}" data-student="${student.name}" data-slo="${slo.id}">${labels[score]}</button>`;
+        }).join("");
+
+        const star = `<span class="${slo.required ? 'star' : 'ghost-star'}">★</span>`;
+        const descClass = collapseDescriptions ? 'slo-desc collapsed' : 'slo-desc';
+
+        return `
+          <div class="slo-row">
+            <div>${star}<strong>SLO ${slo.id}</strong></div>
+            <div class="${descClass}">${slo.desc}</div>
+            <div>${buttons}</div>
+          </div>`;
+      }).join("");
+
+      container.appendChild(div);
+    });
+
+    document.getElementById("pageNum").textContent = currentPage;
+    document.getElementById("pageNumTop").textContent = currentPage;
+
+    document.querySelectorAll(".score-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const student = btn.getAttribute("data-student");
+        const slo = btn.getAttribute("data-slo");
+        const score = btn.getAttribute("data-score");
+        const key = `${student}-${slo}`;
+        const group = btn.closest(".slo-row");
+        const alreadyActive = btn.classList.contains("active");
+
+        group.querySelectorAll(".score-btn").forEach(b => b.classList.remove("active"));
+
+        if (alreadyActive) {
+          delete scoreData[key];
+        } else {
+          scoreData[key] = score;
+          btn.classList.add("active");
+        }
+      });
+    });
+  }
 
     visible.forEach(student => {
       const div = document.createElement("div");
@@ -152,8 +210,48 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleRequiredOnlyCheckbox.addEventListener("change", (e) => {
       showOnlyRequired = e.target.checked;
       renderStudents();
+    }
+  // Toggle logic for required only and description collapse
+  const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
+  toggleBoxes.forEach(box => {
+    box.addEventListener("change", (e) => {
+      showOnlyRequired = e.target.checked;
+      toggleBoxes.forEach(b => b.checked = showOnlyRequired);
+      renderStudents();
     });
+  });
+
+  let collapseDescriptions = false;
+  const descToggles = document.querySelectorAll(".toggleDescriptions");
+  descToggles.forEach(box => {
+    box.addEventListener("change", (e) => {
+      collapseDescriptions = e.target.checked;
+      descToggles.forEach(b => b.checked = collapseDescriptions);
+      renderStudents();
+    });
+  });
+});
   }
 
   renderStudents();
+}
+  // Toggle logic for required only and description collapse
+  const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
+  toggleBoxes.forEach(box => {
+    box.addEventListener("change", (e) => {
+      showOnlyRequired = e.target.checked;
+      toggleBoxes.forEach(b => b.checked = showOnlyRequired);
+      renderStudents();
+    });
+  });
+
+  let collapseDescriptions = false;
+  const descToggles = document.querySelectorAll(".toggleDescriptions");
+  descToggles.forEach(box => {
+    box.addEventListener("change", (e) => {
+      collapseDescriptions = e.target.checked;
+      descToggles.forEach(b => b.checked = collapseDescriptions);
+      renderStudents();
+    });
+  });
 });
