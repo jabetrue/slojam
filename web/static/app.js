@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let showOnlyRequired = false;
 
   
+  
   function renderStudents() {
     const container = document.getElementById("studentsContainer");
     container.innerHTML = "";
@@ -90,6 +91,9 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+);
+    });
+  }
 
     visible.forEach(student => {
       const div = document.createElement("div");
@@ -154,7 +158,27 @@ document.addEventListener("DOMContentLoaded", () => {
     perPage = selectedValue === "all" ? allStudents.length : parseInt(selectedValue);
     currentPage = 1;
     document.getElementById("perPageSelectBottom").value = selectedValue;
-    renderStudents();
+    
+  const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
+  toggleBoxes.forEach(box => {
+    box.addEventListener("change", (e) => {
+      showOnlyRequired = e.target.checked;
+      toggleBoxes.forEach(b => b.checked = showOnlyRequired);
+      renderStudents();
+    });
+  });
+
+  let collapseDescriptions = false;
+  const descToggles = document.querySelectorAll(".toggleDescriptions");
+  descToggles.forEach(box => {
+    box.addEventListener("change", (e) => {
+      collapseDescriptions = e.target.checked;
+      descToggles.forEach(b => b.checked = collapseDescriptions);
+      renderStudents();
+    });
+  });
+
+  renderStudents();
   }
 
   const perPageSelect = document.getElementById("perPageSelect");
@@ -173,25 +197,105 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("prevBtn").addEventListener("click", () => {
     if (currentPage > 1) {
       currentPage--;
+      
+  const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
+  toggleBoxes.forEach(box => {
+    box.addEventListener("change", (e) => {
+      showOnlyRequired = e.target.checked;
+      toggleBoxes.forEach(b => b.checked = showOnlyRequired);
       renderStudents();
+    });
+  });
+
+  let collapseDescriptions = false;
+  const descToggles = document.querySelectorAll(".toggleDescriptions");
+  descToggles.forEach(box => {
+    box.addEventListener("change", (e) => {
+      collapseDescriptions = e.target.checked;
+      descToggles.forEach(b => b.checked = collapseDescriptions);
+      renderStudents();
+    });
+  });
+
+  renderStudents();
     }
   });
   document.getElementById("nextBtn").addEventListener("click", () => {
     if ((currentPage * perPage) < allStudents.length) {
       currentPage++;
+      
+  const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
+  toggleBoxes.forEach(box => {
+    box.addEventListener("change", (e) => {
+      showOnlyRequired = e.target.checked;
+      toggleBoxes.forEach(b => b.checked = showOnlyRequired);
       renderStudents();
+    });
+  });
+
+  let collapseDescriptions = false;
+  const descToggles = document.querySelectorAll(".toggleDescriptions");
+  descToggles.forEach(box => {
+    box.addEventListener("change", (e) => {
+      collapseDescriptions = e.target.checked;
+      descToggles.forEach(b => b.checked = collapseDescriptions);
+      renderStudents();
+    });
+  });
+
+  renderStudents();
     }
   });
   document.getElementById("prevBtnTop").addEventListener("click", () => {
     if (currentPage > 1) {
       currentPage--;
+      
+  const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
+  toggleBoxes.forEach(box => {
+    box.addEventListener("change", (e) => {
+      showOnlyRequired = e.target.checked;
+      toggleBoxes.forEach(b => b.checked = showOnlyRequired);
       renderStudents();
+    });
+  });
+
+  let collapseDescriptions = false;
+  const descToggles = document.querySelectorAll(".toggleDescriptions");
+  descToggles.forEach(box => {
+    box.addEventListener("change", (e) => {
+      collapseDescriptions = e.target.checked;
+      descToggles.forEach(b => b.checked = collapseDescriptions);
+      renderStudents();
+    });
+  });
+
+  renderStudents();
     }
   });
   document.getElementById("nextBtnTop").addEventListener("click", () => {
     if ((currentPage * perPage) < allStudents.length) {
       currentPage++;
+      
+  const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
+  toggleBoxes.forEach(box => {
+    box.addEventListener("change", (e) => {
+      showOnlyRequired = e.target.checked;
+      toggleBoxes.forEach(b => b.checked = showOnlyRequired);
       renderStudents();
+    });
+  });
+
+  let collapseDescriptions = false;
+  const descToggles = document.querySelectorAll(".toggleDescriptions");
+  descToggles.forEach(box => {
+    box.addEventListener("change", (e) => {
+      collapseDescriptions = e.target.checked;
+      descToggles.forEach(b => b.checked = collapseDescriptions);
+      renderStudents();
+    });
+  });
+
+  renderStudents();
     }
   });
 
@@ -209,9 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (toggleRequiredOnlyCheckbox) {
     toggleRequiredOnlyCheckbox.addEventListener("change", (e) => {
       showOnlyRequired = e.target.checked;
-      renderStudents();
-    }
-  // Toggle logic for required only and description collapse
+      
   const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
   toggleBoxes.forEach(box => {
     box.addEventListener("change", (e) => {
@@ -230,8 +332,64 @@ document.addEventListener("DOMContentLoaded", () => {
       renderStudents();
     });
   });
+
+  renderStudents();
+    }
+  // Toggle logic for required only and description collapse
+  const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
+  toggleBoxes.forEach(box => {
+    box.addEventListener("change", (e) => {
+      showOnlyRequired = e.target.checked;
+      toggleBoxes.forEach(b => b.checked = showOnlyRequired);
+      
+  const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
+  toggleBoxes.forEach(box => {
+    box.addEventListener("change", (e) => {
+      showOnlyRequired = e.target.checked;
+      toggleBoxes.forEach(b => b.checked = showOnlyRequired);
+      renderStudents();
+    });
+  });
+
+  let collapseDescriptions = false;
+  const descToggles = document.querySelectorAll(".toggleDescriptions");
+  descToggles.forEach(box => {
+    box.addEventListener("change", (e) => {
+      collapseDescriptions = e.target.checked;
+      descToggles.forEach(b => b.checked = collapseDescriptions);
+      renderStudents();
+    });
+  });
+
+  renderStudents();
+    });
+  });
+
+  
+    });
+  });
 });
   }
+
+  
+  const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
+  toggleBoxes.forEach(box => {
+    box.addEventListener("change", (e) => {
+      showOnlyRequired = e.target.checked;
+      toggleBoxes.forEach(b => b.checked = showOnlyRequired);
+      renderStudents();
+    });
+  });
+
+  let collapseDescriptions = false;
+  const descToggles = document.querySelectorAll(".toggleDescriptions");
+  descToggles.forEach(box => {
+    box.addEventListener("change", (e) => {
+      collapseDescriptions = e.target.checked;
+      descToggles.forEach(b => b.checked = collapseDescriptions);
+      renderStudents();
+    });
+  });
 
   renderStudents();
 }
@@ -241,6 +399,12 @@ document.addEventListener("DOMContentLoaded", () => {
     box.addEventListener("change", (e) => {
       showOnlyRequired = e.target.checked;
       toggleBoxes.forEach(b => b.checked = showOnlyRequired);
+      
+  const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
+  toggleBoxes.forEach(box => {
+    box.addEventListener("change", (e) => {
+      showOnlyRequired = e.target.checked;
+      toggleBoxes.forEach(b => b.checked = showOnlyRequired);
       renderStudents();
     });
   });
@@ -252,6 +416,14 @@ document.addEventListener("DOMContentLoaded", () => {
       collapseDescriptions = e.target.checked;
       descToggles.forEach(b => b.checked = collapseDescriptions);
       renderStudents();
+    });
+  });
+
+  renderStudents();
+    });
+  });
+
+  
     });
   });
 });
