@@ -22,7 +22,20 @@ document.addEventListener("DOMContentLoaded", () => {
   let showOnlyRequired = false;
   let collapseDescriptions = false;
 
+  function isStudentComplete(studentName) {
+    const requiredSLOs = sloList.filter(s => s.required);
+    return requiredSLOs.every(slo => {
+      const key = `${studentName}-${slo.id}`;
+      return scoreData[key] !== undefined;
+    });
+  }
+  
   function renderStudents() {
+    // Count fully scored students
+    const scoredCount = allStudents.filter(s => isStudentComplete(s.name)).length;
+    const totalStudents = allStudents.length;
+    document.getElementById("progressTally").textContent = `${scoredCount} of ${totalStudents} Students Scored`;
+
     const container = document.getElementById("studentsContainer");
     container.innerHTML = "";
     const start = (currentPage - 1) * perPage;
@@ -40,7 +53,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const visibleSLOs = showOnlyRequired ? sloList.filter(s => s.required) : sloList;
       
-      div.innerHTML = `<h2>${student.name}</h2>` + visibleSLOs.map(slo => {
+      const statusIcon = isStudentComplete(student.name)
+        ? '<i class="fas fa-face-smile" style="color:green; margin-left: 0.5rem;"></i>'
+        : '<i class="fas fa-face-meh" style="color:gray; margin-left: 0.5rem;"></i>';
+      
+      div.innerHTML = `<h2>${student.name} ${statusIcon}</h2>` + visibleSLOs.map(slo => {
+
         const key = `${student.name}-${slo.id}`;
         const selectedScore = scoreData[key];
       
@@ -91,6 +109,8 @@ document.addEventListener("DOMContentLoaded", () => {
           scoreData[key] = score;
           btn.classList.add("active");
         }
+        // ✅ Re-render to update icons and progress
+        renderStudents();
       });
     });
   }
