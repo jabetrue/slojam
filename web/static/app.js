@@ -54,8 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const visibleSLOs = showOnlyRequired ? sloList.filter(s => s.required) : sloList;
       
       const statusIcon = isStudentComplete(student.name)
-        ? '<i class="fas fa-face-smile" style="color:green; margin-left: 0.5rem;"></i>'
-        : '<i class="fas fa-face-meh" style="color:gray; margin-left: 0.5rem;"></i>';
+        ? '<i class="fas fa-face-smile" style="color:#00b300; margin-left: 0.5rem;"></i>'  // brighter green
+        : '<i class="fas fa-face-meh" style="color:#aaa; margin-left: 0.5rem;"></i>';
       
       div.innerHTML = `<h2>${student.name} ${statusIcon}</h2>` + visibleSLOs.map(slo => {
 
