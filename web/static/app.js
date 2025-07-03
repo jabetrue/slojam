@@ -100,34 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     perPage = selectedValue === "all" ? allStudents.length : parseInt(selectedValue);
     currentPage = 1;
     document.getElementById("perPageSelectBottom").value = selectedValue;
-    
-  const optionalToggles = [
-    document.getElementById("toggleOptionalTop"),
-    document.getElementById("toggleOptionalBottom")
-  ];
-
-  optionalToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      showOnlyRequired = e.target.checked;
-      optionalToggles.forEach(t => t.checked = showOnlyRequired);
-      renderStudents();
-    });
-  });
-
-  const descriptionToggles = [
-    document.getElementById("toggleDescriptionsTop"),
-    document.getElementById("toggleDescriptionsBottom")
-  ];
-
-  descriptionToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      collapseDescriptions = e.target.checked;
-      descriptionToggles.forEach(t => t.checked = collapseDescriptions);
-      renderStudents();
-    });
-  });
-
-  renderStudents();
+    renderStudents();
   }
 
   const perPageSelect = document.getElementById("perPageSelect");
@@ -146,133 +119,25 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("prevBtn").addEventListener("click", () => {
     if (currentPage > 1) {
       currentPage--;
-      
-  const optionalToggles = [
-    document.getElementById("toggleOptionalTop"),
-    document.getElementById("toggleOptionalBottom")
-  ];
-
-  optionalToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      showOnlyRequired = e.target.checked;
-      optionalToggles.forEach(t => t.checked = showOnlyRequired);
       renderStudents();
-    });
-  });
-
-  const descriptionToggles = [
-    document.getElementById("toggleDescriptionsTop"),
-    document.getElementById("toggleDescriptionsBottom")
-  ];
-
-  descriptionToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      collapseDescriptions = e.target.checked;
-      descriptionToggles.forEach(t => t.checked = collapseDescriptions);
-      renderStudents();
-    });
-  });
-
-  renderStudents();
     }
   });
   document.getElementById("nextBtn").addEventListener("click", () => {
     if ((currentPage * perPage) < allStudents.length) {
       currentPage++;
-      
-  const optionalToggles = [
-    document.getElementById("toggleOptionalTop"),
-    document.getElementById("toggleOptionalBottom")
-  ];
-
-  optionalToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      showOnlyRequired = e.target.checked;
-      optionalToggles.forEach(t => t.checked = showOnlyRequired);
       renderStudents();
-    });
-  });
-
-  const descriptionToggles = [
-    document.getElementById("toggleDescriptionsTop"),
-    document.getElementById("toggleDescriptionsBottom")
-  ];
-
-  descriptionToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      collapseDescriptions = e.target.checked;
-      descriptionToggles.forEach(t => t.checked = collapseDescriptions);
-      renderStudents();
-    });
-  });
-
-  renderStudents();
     }
   });
   document.getElementById("prevBtnTop").addEventListener("click", () => {
     if (currentPage > 1) {
       currentPage--;
-      
-  const optionalToggles = [
-    document.getElementById("toggleOptionalTop"),
-    document.getElementById("toggleOptionalBottom")
-  ];
-
-  optionalToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      showOnlyRequired = e.target.checked;
-      optionalToggles.forEach(t => t.checked = showOnlyRequired);
       renderStudents();
-    });
-  });
-
-  const descriptionToggles = [
-    document.getElementById("toggleDescriptionsTop"),
-    document.getElementById("toggleDescriptionsBottom")
-  ];
-
-  descriptionToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      collapseDescriptions = e.target.checked;
-      descriptionToggles.forEach(t => t.checked = collapseDescriptions);
-      renderStudents();
-    });
-  });
-
-  renderStudents();
     }
   });
   document.getElementById("nextBtnTop").addEventListener("click", () => {
     if ((currentPage * perPage) < allStudents.length) {
       currentPage++;
-      
-  const optionalToggles = [
-    document.getElementById("toggleOptionalTop"),
-    document.getElementById("toggleOptionalBottom")
-  ];
-
-  optionalToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      showOnlyRequired = e.target.checked;
-      optionalToggles.forEach(t => t.checked = showOnlyRequired);
       renderStudents();
-    });
-  });
-
-  const descriptionToggles = [
-    document.getElementById("toggleDescriptionsTop"),
-    document.getElementById("toggleDescriptionsBottom")
-  ];
-
-  descriptionToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      collapseDescriptions = e.target.checked;
-      descriptionToggles.forEach(t => t.checked = collapseDescriptions);
-      renderStudents();
-    });
-  });
-
-  renderStudents();
     }
   });
 
@@ -291,34 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
     box.addEventListener("change", (e) => {
       showOnlyRequired = e.target.checked;
       toggleBoxes.forEach(b => b.checked = showOnlyRequired); // Sync top and bottom
-      
-  const optionalToggles = [
-    document.getElementById("toggleOptionalTop"),
-    document.getElementById("toggleOptionalBottom")
-  ];
-
-  optionalToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      showOnlyRequired = e.target.checked;
-      optionalToggles.forEach(t => t.checked = showOnlyRequired);
       renderStudents();
-    });
-  });
-
-  const descriptionToggles = [
-    document.getElementById("toggleDescriptionsTop"),
-    document.getElementById("toggleDescriptionsBottom")
-  ];
-
-  descriptionToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      collapseDescriptions = e.target.checked;
-      descriptionToggles.forEach(t => t.checked = collapseDescriptions);
-      renderStudents();
-    });
-  });
-
-  renderStudents();
     });
   });
   
@@ -327,60 +165,6 @@ document.addEventListener("DOMContentLoaded", () => {
     box.addEventListener("change", (e) => {
       collapseDescriptions = e.target.checked;
       descToggles.forEach(b => b.checked = collapseDescriptions); // sync top/bottom
-      
-  const optionalToggles = [
-    document.getElementById("toggleOptionalTop"),
-    document.getElementById("toggleOptionalBottom")
-  ];
-
-  optionalToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      showOnlyRequired = e.target.checked;
-      optionalToggles.forEach(t => t.checked = showOnlyRequired);
-      renderStudents();
-    });
-  });
-
-  const descriptionToggles = [
-    document.getElementById("toggleDescriptionsTop"),
-    document.getElementById("toggleDescriptionsBottom")
-  ];
-
-  descriptionToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      collapseDescriptions = e.target.checked;
-      descriptionToggles.forEach(t => t.checked = collapseDescriptions);
-      renderStudents();
-    });
-  });
-
-  renderStudents();
-    });
-  });
-
-  
-  const optionalToggles = [
-    document.getElementById("toggleOptionalTop"),
-    document.getElementById("toggleOptionalBottom")
-  ];
-
-  optionalToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      showOnlyRequired = e.target.checked;
-      optionalToggles.forEach(t => t.checked = showOnlyRequired);
-      renderStudents();
-    });
-  });
-
-  const descriptionToggles = [
-    document.getElementById("toggleDescriptionsTop"),
-    document.getElementById("toggleDescriptionsBottom")
-  ];
-
-  descriptionToggles.forEach(toggle => {
-    toggle.addEventListener("change", (e) => {
-      collapseDescriptions = e.target.checked;
-      descriptionToggles.forEach(t => t.checked = collapseDescriptions);
       renderStudents();
     });
   });
