@@ -55,10 +55,22 @@
     }
     .slo-row {
       display: grid;
-      grid-template-columns: 1fr 2.5fr auto;
+      grid-template-columns: 1.1fr 2fr 1fr;
       align-items: center;
-      margin-bottom: 0.5rem;
+      gap: 1rem;
     }
+    
+    .slo-row > div:first-child {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    
+    .slo-desc {
+      transition: all 0.2s ease;
+      padding-right: 0.5rem;
+    }
+
     .score-btn {
       padding: 0.35rem 0.75rem;
       margin: 0 0.1rem;
