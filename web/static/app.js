@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let perPage = 5;
   let scoreData = {}; // key: "studentName-sloId", value: score
   let showOnlyRequired = false;
+  let collapseDescriptions = false;
 
   function renderStudents() {
     const container = document.getElementById("studentsContainer");
@@ -60,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return `
           <div class="slo-row">
             <div>${star}<strong>SLO ${slo.id}</strong></div>
-            <div>${slo.desc}</div>
+            <div class="${collapseDescriptions ? 'slo-desc collapsed' : 'slo-desc'}">${slo.desc}</div>
             <div>${buttons}</div>
           </div>`;
       }).join("");
@@ -155,6 +156,15 @@ document.addEventListener("DOMContentLoaded", () => {
     box.addEventListener("change", (e) => {
       showOnlyRequired = e.target.checked;
       toggleBoxes.forEach(b => b.checked = showOnlyRequired); // Sync top and bottom
+      renderStudents();
+    });
+  });
+  
+  const descToggles = document.querySelectorAll(".toggleDescriptions");
+  descToggles.forEach(box => {
+    box.addEventListener("change", (e) => {
+      collapseDescriptions = e.target.checked;
+      descToggles.forEach(b => b.checked = collapseDescriptions); // sync top/bottom
       renderStudents();
     });
   });
