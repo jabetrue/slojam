@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const sloList = [
     { id: 1, desc: "Analyze art using formal and contextual analysis.", required: true },
     { id: 2, desc: "Identify stylistic features in historical artworks.", required: false },
-    { id: 3, desc: "Evaluate works of art and/or architecture, accounting for both similarities and differences.", required: true },
+    { id: 3, desc: "Evaluate works of art and/or architecture, accounting for both similarities and differences.", required: false },
     { id: 4, desc: "Analyze the ways in which art from prehistory through the middle ages has been employed historically to express fundamental human ideals, values, and beliefs.", required: false }
   ];
 
@@ -38,30 +38,33 @@ document.addEventListener("DOMContentLoaded", () => {
       div.className = "student";
 
       const visibleSLOs = showOnlyRequired ? sloList.filter(s => s.required) : sloList;
-
+      
       div.innerHTML = `<h2>${student.name}</h2>` + visibleSLOs.map(slo => {
         const key = `${student.name}-${slo.id}`;
         const selectedScore = scoreData[key];
-
+      
         const labels = {
           4: 'Exceeded (4)',
           3: 'Met (3)',
           2: 'Partially Met (2)',
           1: 'Not Met (1)'
         };
-
+      
         const buttons = [4, 3, 2, 1].map(score => {
           const isActive = selectedScore == score ? 'active' : '';
           return `<button class="score-btn ${isActive}" data-score="${score}" data-student="${student.name}" data-slo="${slo.id}">${labels[score]}</button>`;
         }).join("");
-
+      
+        const star = `<span class="${slo.required ? 'star' : 'ghost-star'}">★</span>`;
+      
         return `
           <div class="slo-row">
-            <div><strong>SLO ${slo.id}</strong></div>
+            <div>${star}<strong>SLO ${slo.id}</strong></div>
             <div>${slo.desc}</div>
             <div>${buttons}</div>
           </div>`;
       }).join("");
+
 
       container.appendChild(div);
     });
