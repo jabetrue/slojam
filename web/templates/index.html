@@ -2,27 +2,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>SLO Scoring</title>
-  <link rel="stylesheet" href="/static/style.css" />
+  <meta charset="UTF-8">
+  <title>SLO Scoring - SLOJam</title>
+  <link rel="stylesheet" href="/static/style.css">
   <script>
-    const requiredSLOs = new Set([1, 3]);
+    const requiredSLOs = new Set([1, 3]);  // Replace dynamically via Flask in production
   </script>
   <script src="/static/app.js" defer></script>
 </head>
 <body>
-  <h1>SLO Scoring Interface</h1>
+  <header>
+    <h1>SLO Scoring Interface</h1>
+  </header>
 
-  <div class="controls">
-    <label><input type="checkbox" class="toggleRequiredOnly"> Hide optional SLOs</label>
-    <label><input type="checkbox" class="toggleDescriptions"> Collapse descriptions</label>
-  </div>
+  <section class="options">
+    <div class="toggle-group">
+      <label><input type="checkbox" id="toggleRequiredOnly"> Show only SLOs required for this course</label>
+    </div>
+    <div class="toggle-group">
+      <label><input type="checkbox" id="toggleTips"> Show instructions and help</label>
+    </div>
+  </section>
 
-  <div id="studentsContainer"></div>
+  <section id="tips" style="display: none;">
+    <div class="tips-box">
+      <p><strong>Instructions:</strong> Click a score below each SLO for every student. Required SLOs are marked with a red star (★).</p>
+    </div>
+  </section>
 
-  <div class="controls">
-    <label><input type="checkbox" class="toggleRequiredOnly"> Hide optional SLOs</label>
-    <label><input type="checkbox" class="toggleDescriptions"> Collapse descriptions</label>
-  </div>
+  <section class="pagination-controls">
+    <label for="studentsPerPage">Students per page:</label>
+    <select id="studentsPerPage">
+      <option value="1">1</option>
+      <option value="5">5</option>
+      <option value="10" selected>10</option>
+      <option value="20">20</option>
+      <option value="All">All</option>
+    </select>
+    <div id="paginationNav"></div>
+  </section>
+
+  <main id="studentsContainer"></main>
+
+  <footer class="pagination-controls">
+    <label for="studentsPerPageBottom">Students per page:</label>
+    <select id="studentsPerPageBottom">
+      <option value="1">1</option>
+      <option value="5">5</option>
+      <option value="10" selected>10</option>
+      <option value="20">20</option>
+      <option value="All">All</option>
+    </select>
+    <div id="paginationNavBottom"></div>
+  </footer>
 </body>
 </html>
