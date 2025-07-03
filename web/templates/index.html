@@ -53,10 +53,11 @@
       font-weight: 600;
       color: #08519c;
     }
+    
     .slo-row {
       display: grid;
-      grid-template-columns: 130px 1fr min-content;
-      align-items: start;
+      grid-template-columns: 130px 1fr auto;
+      align-items: center;
       gap: 1rem;
     }
     
@@ -69,6 +70,13 @@
     .slo-desc {
       transition: all 0.2s ease;
       padding-right: 0.75rem;
+    }
+    
+    .button-group {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 0.25rem;
+      flex-shrink: 0;
     }
 
     .score-btn {

@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="slo-row">
             <div>${star}<strong>SLO ${slo.id}</strong></div>
             <div class="${collapseDescriptions ? 'slo-desc collapsed' : 'slo-desc'}">${slo.desc}</div>
-            <div>${buttons}</div>
+            <div class="button-group">${buttons}</div>
           </div>`;
       }).join("");
 
