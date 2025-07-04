@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <title>SLOJam - Web Mode</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
@@ -27,10 +27,6 @@
       font-size: 1rem;
       margin-bottom: 1rem;
       color: #444;
-    }
-    #toggleTips {
-      margin-bottom: 1rem;
-      font-size: 0.85rem;
     }
     .toggle-panel {
       background: #f8f8f8;
@@ -154,9 +150,6 @@
 	.ghost-star {
 	  visibility: hidden; /* keeps spacing but hides icon */
 	}
-	.slo-desc {
-  	  transition: all 0.2s ease;
-	}
 	.collapsed {
 	  max-height: 1.2em;
 	  overflow: hidden;
@@ -170,17 +163,18 @@
   <h1>SLO Scoring for ART 001A #98765</h1>
   <div class="instructor">Instructor: Jason Betrue</div>
 
-  <button id="toggleTips">👁️ Hide Tips and Options</button>
-  <div id="tipsPanel">
-    <div class="toggle-panel">
-      <h3>Quick Tips:</h3>
-      <ul>
-        <li>Use the score buttons to assign SLO scores for each student.</li>
-        <li>Required SLOs are marked with a <span class="star">★</span> symbol.</li>
-        <li>You can use the toggles below to hide optional outcomes or show/hide full descriptions.</li>
-      </ul>
+  <div id="tipsPanel" class="toggle-panel">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3 style="margin: 0;">Welcome to SLOJam!</h3>
+      <button id="collapseIconBtn" title="Hide Info & Instructions" aria-label="Hide Info & Instructions" style="background: none; border: none; cursor: pointer; font-size: 1.2rem;">
+        ▲
+      </button>
     </div>
-
+    <ul style="margin-top: 0.5rem;">
+      <li>Use the score buttons to assign SLO scores for each student.</li>
+      <li>Required SLOs are marked with a <span class="star">★</span> symbol.</li>
+      <li>You can use the toggles below to hide optional outcomes or show/hide full descriptions.</li>
+    </ul>
   </div>
 
 <div class="pagination-bar" style="justify-content: space-between;">

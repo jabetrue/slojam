@@ -54,8 +54,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const visibleSLOs = showOnlyRequired ? sloList.filter(s => s.required) : sloList;
       
       const statusIcon = isStudentComplete(student.name)
-        ? '<i class="fas fa-face-smile" style="color:#00b300; margin-left: 0.5rem;"></i>'  // brighter green
-        : '<i class="fas fa-face-meh" style="color:#aaa; margin-left: 0.5rem;"></i>';
+        ? '<i class="fas fa-face-smile" style="color:#00b300; margin-left: 0.5rem;" aria-label="All required SLOs scored" role="img" title="All required SLOs scored"></i>'
+        : '<i class="fas fa-face-meh" style="color:#aaa; margin-left: 0.5rem;" aria-label="Required SLOs incomplete" role="img" title="Required SLOs incomplete"></i>';
       
       div.innerHTML = `<h2>${student.name} ${statusIcon}</h2>` + visibleSLOs.map(slo => {
 
@@ -161,14 +161,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  const toggleBtn = document.getElementById("toggleTips");
   const tipsPanel = document.getElementById("tipsPanel");
-  if (toggleBtn && tipsPanel) {
-    toggleBtn.addEventListener("click", () => {
-      const isHidden = tipsPanel.style.display === "none";
-      tipsPanel.style.display = isHidden ? "block" : "none";
-      toggleBtn.innerHTML = isHidden ? "👁️ Hide Tips and Options" : "👁 Show Tips and Options";
+  const collapseBtn = document.getElementById("collapseIconBtn");
+  
+  if (collapseBtn && tipsPanel) {
+    collapseBtn.addEventListener("click", () => {
+      const isVisible = tipsPanel.classList.contains("expanded");
+  
+      if (isVisible) {
+        tipsPanel.classList.remove("expanded");
+        tipsPanel.style.display = "none";
+        collapseBtn.innerHTML = "▼";
+        collapseBtn.title = "Show Info & Instructions";
+        collapseBtn.setAttribute("aria-label", "Show Info & Instructions");
+      } else {
+        tipsPanel.classList.add("expanded");
+        tipsPanel.style.display = "block";
+        collapseBtn.innerHTML = "▲";
+        collapseBtn.title = "Hide Info & Instructions";
+        collapseBtn.setAttribute("aria-label", "Hide Info & Instructions");
+      }
     });
+  
+    // Optional: mark initially expanded
+    tipsPanel.classList.add("expanded");
   }
 
   const toggleBoxes = document.querySelectorAll(".toggleRequiredOnly");
