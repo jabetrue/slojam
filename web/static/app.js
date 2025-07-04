@@ -178,7 +178,6 @@ document.addEventListener("DOMContentLoaded", () => {
   
     collapseArrow.addEventListener("click", () => toggleTipsPanel(false));
     tipsCollapsed.addEventListener("click", () => toggleTipsPanel(true));
-  }
   
     // Optional: mark initially expanded
     tipsPanel.classList.add("expanded");
