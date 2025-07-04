@@ -162,26 +162,23 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const tipsPanel = document.getElementById("tipsPanel");
-  const collapseBtn = document.getElementById("collapseIconBtn");
+  const tipsCollapsed = document.getElementById("tipsCollapsed");
+  const collapseArrow = document.getElementById("collapseArrow");
   
-  if (collapseBtn && tipsPanel) {
-    collapseBtn.addEventListener("click", () => {
-      const isVisible = tipsPanel.classList.contains("expanded");
-  
-      if (isVisible) {
-        tipsPanel.classList.remove("expanded");
-        tipsPanel.style.display = "none";
-        collapseBtn.innerHTML = "▼";
-        collapseBtn.title = "Show Info & Instructions";
-        collapseBtn.setAttribute("aria-label", "Show Info & Instructions");
-      } else {
-        tipsPanel.classList.add("expanded");
+  if (collapseArrow && tipsPanel && tipsCollapsed) {
+    function toggleTipsPanel(expand) {
+      if (expand) {
         tipsPanel.style.display = "block";
-        collapseBtn.innerHTML = "▲";
-        collapseBtn.title = "Hide Info & Instructions";
-        collapseBtn.setAttribute("aria-label", "Hide Info & Instructions");
+        tipsCollapsed.style.display = "none";
+      } else {
+        tipsPanel.style.display = "none";
+        tipsCollapsed.style.display = "block";
       }
-    });
+    }
+  
+    collapseArrow.addEventListener("click", () => toggleTipsPanel(false));
+    tipsCollapsed.addEventListener("click", () => toggleTipsPanel(true));
+  }
   
     // Optional: mark initially expanded
     tipsPanel.classList.add("expanded");
