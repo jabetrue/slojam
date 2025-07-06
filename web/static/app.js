@@ -54,9 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const visibleSLOs = showOnlyRequired ? sloList.filter(s => s.required) : sloList;
       
       const statusIcon = isStudentComplete(student.name)
-        ? '<i class="fas fa-face-smile" style="color:#00b300; margin-left: 0.5rem; font-size: 1.1rem;" aria-label="All required SLOs scored" role="img" title="All required SLOs scored"></i>'
-        : '<i class="fas fa-face-meh" style="color:#aaa; margin-left: 0.5rem; font-size: 0.9rem;" aria-label="Required SLOs incomplete" role="img" title="Required SLOs incomplete"></i>';
-      
+        ? '<img src="/static/images/scored.png" alt="All required SLOs scored" title="All required SLOs scored" style="width: 1.2rem; margin-left: 0.5rem;">'
+        : '<img src="/static/images/notscored.png" alt="Required SLOs incomplete" title="Required SLOs incomplete" style="width: 1.1rem; margin-left: 0.5rem;">';
+
       div.innerHTML = `<h2>${student.name} ${statusIcon}</h2>` + visibleSLOs.map(slo => {
 
         const key = `${student.name}-${slo.id}`;
