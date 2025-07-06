@@ -28,8 +28,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const key = `${studentName}-${slo.id}`;
       return scoreData[key] !== undefined;
     });
+    
   }
-  
+  function isStudentFullyComplete(studentName) {
+    return sloList.every(slo => {
+      const key = `${studentName}-${slo.id}`;
+      return scoreData[key] !== undefined;
+    });
+  }
+
   function renderStudents() {
     // Count fully scored students
     const scoredCount = allStudents.filter(s => isStudentComplete(s.name)).length;
@@ -53,9 +60,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const visibleSLOs = showOnlyRequired ? sloList.filter(s => s.required) : sloList;
       
-      const statusIcon = isStudentComplete(student.name)
-        ? '<img src="/static/images/scored2.png" alt="All required SLOs scored" title="All required SLOs scored" class="status-icon">'
-        : '<img src="/static/images/notscored2.png" alt="Required SLOs incomplete" title="Required SLOs incomplete" class="status-icon">';
+      let statusIcon = "";
+      if (isStudentFullyComplete(student.name)) {
+        statusIcon = '<img src="/static/images/allscored.png" alt="All SLOs scored" title="All SLOs scored" class="status-icon">';
+      } else if (isStudentComplete(student.name)) {
+        statusIcon = '<img src="/static/images/scored.png" alt="All required SLOs scored" title="All required SLOs scored" class="status-icon">';
+      } else {
+        statusIcon = '<img src="/static/images/notscored.png" alt="Required SLOs incomplete" title="Required SLOs incomplete" class="status-icon">';
+      }
 
       div.innerHTML = `<h2>${student.name} ${statusIcon}</h2>` + visibleSLOs.map(slo => {
 
