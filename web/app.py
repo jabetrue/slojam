@@ -72,6 +72,17 @@ def submit_score():
     data = request.get_json()
     print("Received score:", data)
     return jsonify({"status": "success", "received": data}), 200
+    
+@app.route("/api_test")
+def api_test():
+    try:
+        url = f"{CANVAS_API_URL}/users/self/profile"
+        headers = {"Authorization": f"Bearer {CANVAS_API_TOKEN}"}
+        response = requests.get(url, headers=headers)
+        response.raise_for_status()
+        return jsonify(response.json())
+    except Exception as e:
+        return jsonify({"error": str(e)})
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
