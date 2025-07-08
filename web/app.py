@@ -81,25 +81,29 @@ def align_slos_to_course(course_id):
 
     while group_stack:
         group_url = group_stack.pop()
-        group_resp = requests.get(group_url, headers=headers)
-        group_resp.raise_for_status()
-        groups = group_resp.json()
-
+        try:
+            group_resp = requests.get(group_url, headers=headers)
+            group_resp.raise_for_status()
+            groups = group_resp.json()
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                continue  # This just means no subgroups — skip
+            else:
+                raise
+    
         for group in groups:
             if group.get("vendor_guid") == target_vendor_guid:
                 group_id = group.get("id")
                 print(f"Found group ID {group_id} for {target_vendor_guid}")
-
-                # Step 4: Link this group to the course
+    
+                # Link the group to the course
                 link_url = f"{CANVAS_API_URL}/courses/{course_id}/outcome_group_links"
                 post_resp = requests.post(link_url, headers=headers, json={"outcome_group_id": group_id})
                 post_resp.raise_for_status()
                 return {"status": "linked", "group_id": group_id}
-
-            # Recurse into subgroups
+    
+            # Keep crawling down into subgroups
             group_stack.append(f"{CANVAS_API_URL}/outcome_groups/{group['id']}/subgroups")
-
-    return {"error": f"Group {target_vendor_guid} not found."}
 
 def get_required_slos(term_id):
     return REQUIRED_SLO_MATRIX.get(term_id, [])
