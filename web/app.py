@@ -51,8 +51,66 @@ REQUIRED_SLO_MATRIX = {
     "202950": [3, 7],
 }
 
+def align_slos_to_course(course_id):
+    headers = {"Authorization": f"Bearer {CANVAS_API_TOKEN}"}
+
+    # Step 1: Get SIS course ID
+    course_url = f"{CANVAS_API_URL}/courses/{course_id}"
+    course_resp = requests.get(course_url, headers=headers)
+    course_resp.raise_for_status()
+    course_data = course_resp.json()
+    sis_course_id = course_data.get("sis_course_id", "")
+
+    if not sis_course_id or "_" not in sis_course_id:
+        print("SIS ID not found or malformed.")
+        return {"error": "Invalid SIS course ID format."}
+
+    # Step 2: Extract GITR001A part from Fal25_GITR001A_87654
+    parts = sis_course_id.split("_")
+    if len(parts) < 2:
+        return {"error": "Could not extract course code from SIS ID."}
+    course_code = parts[1]
+    target_vendor_guid = f"Group_LVL4_{course_code}"
+
+    print(f"Looking for outcome group: {target_vendor_guid}")
+
+    # Step 3: Search all account-level outcome groups
+    # (Replace account_id with your real root account ID, often 1)
+    account_id = 1
+    group_stack = [f"{CANVAS_API_URL}/accounts/{account_id}/outcome_groups"]
+
+    while group_stack:
+        group_url = group_stack.pop()
+        group_resp = requests.get(group_url, headers=headers)
+        group_resp.raise_for_status()
+        groups = group_resp.json()
+
+        for group in groups:
+            if group.get("vendor_guid") == target_vendor_guid:
+                group_id = group.get("id")
+                print(f"Found group ID {group_id} for {target_vendor_guid}")
+
+                # Step 4: Link this group to the course
+                link_url = f"{CANVAS_API_URL}/courses/{course_id}/outcome_group_links"
+                post_resp = requests.post(link_url, headers=headers, json={"outcome_group_id": group_id})
+                post_resp.raise_for_status()
+                return {"status": "linked", "group_id": group_id}
+
+            # Recurse into subgroups
+            group_stack.append(f"{CANVAS_API_URL}/outcome_groups/{group['id']}/subgroups")
+
+    return {"error": f"Group {target_vendor_guid} not found."}
+
 def get_required_slos(term_id):
     return REQUIRED_SLO_MATRIX.get(term_id, [])
+    
+@app.route("/align_slos")
+def align_slos():
+    try:
+        result = align_slos_to_course(COURSE_ID)
+        return jsonify(result)
+    except Exception as e:
+        return jsonify({"error": str(e)})
 
 @app.route("/")
 def index():
