@@ -76,7 +76,7 @@ def align_slos_to_course(course_id):
 
     # Step 3: Search all account-level outcome groups
     # (Replace account_id with your real root account ID, often 1)
-    account_id = 1
+    account_id = 87480
     group_stack = [f"{CANVAS_API_URL}/accounts/{account_id}/outcome_groups"]
 
     while group_stack:
