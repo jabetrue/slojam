@@ -66,6 +66,64 @@ def index():
     required_slos = get_required_slos(term_id)
 
     return render_template("index.html", students=students, slos=slos, required_slos=required_slos)
+    
+@app.route("/full_api_test")
+def full_api_test():
+    data = {}
+
+    try:
+        # Headers for all requests
+        headers = {"Authorization": f"Bearer {CANVAS_API_TOKEN}"}
+
+        # 1. User profile
+        user_resp = requests.get(f"{CANVAS_API_URL}/users/self/profile", headers=headers)
+        user_resp.raise_for_status()
+        data["user_profile"] = user_resp.json()
+
+        # 2. Course info
+        course_resp = requests.get(f"{CANVAS_API_URL}/courses/{COURSE_ID}", headers=headers)
+        course_resp.raise_for_status()
+        course_info = course_resp.json()
+        data["course_info"] = {
+            "name": course_info.get("name"),
+            "course_code": course_info.get("course_code"),
+            "term_id": course_info.get("term", {}).get("id"),
+            "term_name": course_info.get("term", {}).get("name")
+        }
+
+        # 3. Sections
+        sections_resp = requests.get(f"{CANVAS_API_URL}/courses/{COURSE_ID}/sections", headers=headers)
+        sections_resp.raise_for_status()
+        data["sections"] = sections_resp.json()
+
+        # 4. Roster (students only)
+        roster_url = f"{CANVAS_API_URL}/courses/{COURSE_ID}/enrollments?type[]=StudentEnrollment&per_page=100"
+        roster_resp = requests.get(roster_url, headers=headers)
+        roster_resp.raise_for_status()
+        data["roster"] = [
+            {
+                "id": s.get("user", {}).get("id"),
+                "name": s.get("user", {}).get("sortable_name")
+            }
+            for s in roster_resp.json()
+        ]
+
+        # 5. Outcomes
+        outcomes_resp = requests.get(f"{CANVAS_API_URL}/courses/{COURSE_ID}/outcome_group_links", headers=headers)
+        outcomes_resp.raise_for_status()
+        data["outcomes"] = [
+            {
+                "id": o.get("outcome", {}).get("id"),
+                "title": o.get("outcome", {}).get("title"),
+                "description": o.get("outcome", {}).get("description")
+            }
+            for o in outcomes_resp.json()
+        ]
+
+        return jsonify(data)
+
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": str(e)}), 500
 
 @app.route("/submit_score", methods=["POST"])
 def submit_score():
